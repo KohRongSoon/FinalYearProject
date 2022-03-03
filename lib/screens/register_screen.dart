@@ -100,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
         if (!RegExp(r'^.{8,}$')
             .hasMatch(value)) {
-          return ("Please Enter a valid password with minumum 8 characters");
+          return ("Please Enter a valid password with minumum 8 characters ");
             }
       },
       onSaved: (value){
