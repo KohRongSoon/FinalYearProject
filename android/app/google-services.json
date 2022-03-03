@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1042750408528",
+    "project_id": "carmobileapp-c9675",
+    "storage_bucket": "carmobileapp-c9675.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042750408528:android:f5f60ea78f9f824fe2ce55",
+        "android_client_info": {
+          "package_name": "com.example.carmobileapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042750408528-7jf2p7ub4ng6n2a2b49udnchju2j3qob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR1viqDCyk5RZFbJLCtxJRxSVaQHlASjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042750408528-7jf2p7ub4ng6n2a2b49udnchju2j3qob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
