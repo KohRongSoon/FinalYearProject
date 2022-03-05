@@ -24,7 +24,7 @@ class _SearchCarScreenState extends State<SearchCarScreen> {
                   itemBuilder: (context, index){
                     CarDataModel cars = CarDataModel.fromJson(snapshot.data.docs[index]);
                     return Card(
-                      color: Colors.amber[100],
+                      color: Colors.green[200],
                       elevation: 5,
                       margin: EdgeInsets.all(10),
                       child: ListTile(

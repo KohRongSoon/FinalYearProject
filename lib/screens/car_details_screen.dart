@@ -30,8 +30,9 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
         
       ),
       body: Padding(
-        padding: EdgeInsets.only(top: 15),
-        child: Column(
+        padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+        child:SingleChildScrollView(
+          child: Column(
           children: [
             CarouselSlider.builder(
             itemCount: imgList.length,
@@ -55,8 +56,50 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
             ),
             const SizedBox(height: 20),
             buildIndicator(),
+
+            Container(
+              child: Padding(
+                padding: EdgeInsets.only(top: 30, left: 15, right: 15),
+                child: Column(children: [ Row(children:[ 
+            Text('Car Brand: Honda',
+            style: TextStyle(height: 1.5, letterSpacing: 1.0)),
+            ]),
+      
+            const SizedBox(height: 20),
+            Row(children: [
+              Text('Car Name: Honda Civic 2020',
+            style: TextStyle(height: 1.5, letterSpacing: 1.0))
+            ]),
+            
+            const SizedBox(height: 20),
+            Row(children: [ Text('Car Year: May 2020',
+            style: TextStyle(height: 1.5, letterSpacing: 1.0))],),
+
+            const SizedBox(height: 20),
+            Row(children: [Text('Car Safety: Safety',
+            style: TextStyle(height: 1.5, letterSpacing: 1.0))],),
+
+            const SizedBox(height: 20),
+            Row(children: [Text('Car Power: 200',
+            style: TextStyle(height: 1.5, letterSpacing: 1.0))],),
+
+            const SizedBox(height: 20),
+            Row(children: [Text('Car Price: RM 75000',
+            style: TextStyle(height: 1.5, letterSpacing: 1.0))],),
+
+            const SizedBox(height: 20),
+            Row(children: [Text('Car Engine: Honda ',
+            style: TextStyle(height: 1.5, letterSpacing: 1.0))],),
+
+            const SizedBox(height: 20),
+            Row(children: [Text('Car Body: Sedan',
+            style: TextStyle(height: 1.5, letterSpacing: 1.0))],), ],),
+              ),
+              ),
            ],
           ),
+        )
+        
          
         ),
       );
