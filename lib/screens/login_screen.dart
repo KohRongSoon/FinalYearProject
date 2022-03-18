@@ -2,12 +2,16 @@ import 'dart:math';
 
 import 'package:carmobileapplication/admin_screens/view_car.dart';
 import 'package:carmobileapplication/models/user_data_model.dart';
+import 'package:carmobileapplication/screens/car_details_screen.dart';
 import 'package:carmobileapplication/screens/home_screen.dart';
+import 'package:carmobileapplication/screens/main_screen.dart';
 import 'package:carmobileapplication/screens/register_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import 'car_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({ Key? key }) : super(key: key);
@@ -223,13 +227,14 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
   if('${currentUser.isAdmin}' == 'true'){
-    Fluttertoast.showToast(msg: "Login Successful");
+    Fluttertoast.showToast(msg: "Login Successful Admin");
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => ViewCarScreen()));
   } else{
-    Fluttertoast.showToast(msg: "Login Successful");
+    Fluttertoast.showToast(msg: "Login Successful User");
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (context) => HomeScreen()));
+      MaterialPageRoute(builder: (context) => MainScreen()));
+       //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>HomeScreen()));
   }
   }
 }

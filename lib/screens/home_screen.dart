@@ -19,13 +19,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
 
-  User? user = FirebaseAuth.instance.currentUser;
-  UserDataModel currentUser = UserDataModel();
+  //User? user = FirebaseAuth.instance.currentUser;
+  //UserDataModel currentUser = UserDataModel();
 
   static const IconData carIcon = IconData(0xe1d7, fontFamily: 'MaterialIcons');
   static const IconData compareIcon = IconData(0xe181, fontFamily: 'MaterialIcons');
 
-  int _selectedIndex = 0;
+  int currentIndex = 0;
 
   final screens = [
     HomeScreen(),
@@ -35,14 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
     
 
-  void _onItemTapped(int index) {
+  /*void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       //Navigator.of(context).push(MaterialPageRoute(builder: (context)=>screens[_selectedIndex]));
     });
-  }
+  }*/
 
-  @override
+ /*@override
   void initState(){
     super.initState();
     FirebaseFirestore.instance
@@ -53,20 +53,21 @@ class _HomeScreenState extends State<HomeScreen> {
         this.currentUser = UserDataModel.fromMap(value.data());
         setState((){});
       });
-
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) { 
     return Scaffold(
-      body: Center(
+      appBar: AppBar(title: 
+        Text("Home Screen")));
+      //body: screens[currentIndex],
+      /*body:Center(
         child: Padding(
           padding: EdgeInsets.all(25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              
               SizedBox(height: 40),
               Text(
                 "${currentUser.name} ${currentUser.email}",
@@ -95,51 +96,69 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),    
                       ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text("Test"),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context, 
+                              MaterialPageRoute(
+                                builder: (context) => 
+                                  ProfileScreen()));
+                                  
+                          },
+                          child: Text(
+                            "Test",
+                            style: TextStyle(
+                              color: Colors.purpleAccent,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold)
+                            ),
+                          ),    
+                      ],
                     )
             ],
               )
             )
-          ),
+          ),*/
         
         
-        bottomNavigationBar: BottomNavigationBar(
+        /*bottomNavigationBar: BottomNavigationBar(
         iconSize: 40,
         backgroundColor: Colors.blue[100],
         type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+            
           ),
 
           BottomNavigationBarItem(
             icon: Icon(carIcon),
-            
             label: 'Cars',
+            //backgroundColor: Colors.amber,
           ),
 
           BottomNavigationBarItem(
             icon: Icon(compareIcon),
             label: 'Compare',
+            //backgroundColor: Colors.red,
           ),
 
             BottomNavigationBarItem(
             icon: Icon(Icons.face),
             label: 'Profile',
           ),
-          /*BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage("images/carIcon.jpg"),
-                color: Color(0xFF3A5A98),
-               ),
-           label: 'Profile',
-          ),*/
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: currentIndex,
         selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
+        onTap: (index) => setState(() => currentIndex = index),
       ),
-      );
+      );*/
   }
 }
 

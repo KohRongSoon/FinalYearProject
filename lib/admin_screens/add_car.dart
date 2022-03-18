@@ -38,7 +38,6 @@ class _AddCarScreenState extends State<AddCarScreen> {
     return Scaffold(
       appBar: AppBar(
           title: const Text('Add Car')),
-        backgroundColor: Colors.pink[100],
           body: Center(
             child: SingleChildScrollView(
               child: Container(

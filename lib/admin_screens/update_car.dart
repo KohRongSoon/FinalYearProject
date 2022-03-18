@@ -40,7 +40,8 @@ class _UpdateCarScreenState extends State<UpdateCarScreen> {
 
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          title: const Text('Update Car Info'),
+          
           elevation: 0,
           actions: [
             IconButton(onPressed: ()async{

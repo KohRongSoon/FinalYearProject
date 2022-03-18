@@ -37,7 +37,7 @@ class _ViewCarScreenState extends State<ViewCarScreen> {
   @override
   Widget build(BuildContext context) {
      return Scaffold(
-      appBar: AppBar(title: const Text('Home Page')),
+      appBar: AppBar(title: const Text('Home ')),
        body: StreamBuilder(
          stream: FirebaseFirestore.instance.collection('car').orderBy('brand',descending: false).snapshots(),
          builder: (context, AsyncSnapshot snapshot){
