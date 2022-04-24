@@ -1,3 +1,4 @@
+import 'package:carmobileapplication/models/car_data_model.dart';
 import 'package:carmobileapplication/screens/car_compare.dart';
 import 'package:carmobileapplication/screens/car_screen.dart';
 import 'package:carmobileapplication/screens/home_screen.dart';
@@ -17,7 +18,8 @@ class _MainScreenState extends State<MainScreen> {
   static const IconData compareIcon = IconData(0xe181, fontFamily: 'MaterialIcons');
 
   int currentIndex = 0;
-
+  
+  
   final screens = [
     HomeScreen(),
     SearchCarScreen(),

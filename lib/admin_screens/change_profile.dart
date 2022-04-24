@@ -1,19 +1,17 @@
 import 'package:carmobileapplication/models/user_data_model.dart';
-import 'package:carmobileapplication/screens/home_screen.dart';
-import 'package:carmobileapplication/screens/login_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class ChangeAProfileScreen extends StatefulWidget {
+  const ChangeAProfileScreen({Key? key}) : super(key: key);
 
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  State<ChangeAProfileScreen> createState() => _ChangeProfileScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _ChangeProfileScreenState extends State<ChangeAProfileScreen> {
   final formKey = GlobalKey<FormState>();
 
   final TextEditingController nameController = new TextEditingController();
@@ -22,8 +20,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController repasswordController =
       new TextEditingController();
 
-  final auth = FirebaseAuth.instance;
+  User? user = FirebaseAuth.instance.currentUser;
+  UserDataModel currentUser = UserDataModel();
+
   bool _hidePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("user")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      currentUser = UserDataModel.fromMap(value.data());
+      setState(() {
+        nameController.text = currentUser.name!;
+        emailController.text = currentUser.email!;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       keyboardType: TextInputType.name,
       validator: (value) {
         if (value!.isEmpty) {
-          return ("Please Enter Name");
+          return ("Please Enter Password");
         }
 
         if (!RegExp(r'^.{5,}$').hasMatch(value)) {
@@ -54,6 +70,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     final emailInput = TextFormField(
+      //initialValue: currentUser.email,
+      enabled: false,
       autofocus: false,
       controller: emailController,
       keyboardType: TextInputType.emailAddress,
@@ -122,10 +140,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       obscureText: _hidePassword,
       validator: (value) {
         if (value!.isEmpty) {
-          return ("Please Enter Confiorm Password ");
+          return ("Please Enter Confirm Password ");
         }
 
-        if (value != passwordController.text) {
+        if (passwordController.text != value) {
           return "Input password does not match!";
         }
 
@@ -161,10 +179,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
-            register(emailController.text, passwordController.text);
+            changePassword(passwordController.text, nameController.text);
           },
           child: const Text(
-            "Sign Up",
+            "Update Information",
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: 25, color: Colors.white),
           )),
@@ -173,14 +191,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
         //backgroundColor: Colors.lightGreen[100],
         appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_sharp, color: Colors.black),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )),
+          title: const Text('Profile Details'),
+        ),
         body: Center(
             child: SingleChildScrollView(
                 child: Container(
@@ -216,34 +228,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ))));
   }
 
-  Future<void> register(String email, String password) async {
+  Future<void> changePassword(String password, String name) async {
     if (formKey.currentState!.validate()) {
-      await auth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => {passDataToFirestore()})
-          .catchError((error) {
-        Fluttertoast.showToast(msg: error!.message);
+      user!.updatePassword(password).then((_) async {
+        try {
+          await FirebaseFirestore.instance
+              .collection('user')
+              .doc(user!.uid)
+              .update({
+            'name': name,
+          });
+        } catch (err) {
+          Fluttertoast.showToast(msg: '$err');
+        }
+        Navigator.pop(context);
+        Fluttertoast.showToast(msg: 'Change account details sucessfully');
+      }).catchError((err) {
+        Fluttertoast.showToast(msg: err!.message);
       });
     }
-  }
-
-  passDataToFirestore() async {
-    FirebaseFirestore firebase = FirebaseFirestore.instance;
-    User? user = auth.currentUser;
-
-    UserDataModel userDataModel = UserDataModel();
-
-    userDataModel.email = user!.email;
-    userDataModel.uId = user.uid;
-    userDataModel.name = nameController.text;
-
-    await firebase.collection("user").doc(user.uid).set(userDataModel.toMap());
-
-    Fluttertoast.showToast(msg: "Created Account successfully ");
-
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-        (route) => false);
   }
 }

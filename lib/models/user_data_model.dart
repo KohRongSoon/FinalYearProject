@@ -13,7 +13,6 @@ class UserDataModel{
       name: map['name'],
       email: map['email'],
       isAdmin: map['isAdmin'],
-
     );
   }
 
